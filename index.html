@@ -3,186 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HBOT Aura Geode: Cooperative Rollout Plan</title>
+    <title>Aura Geode: A Regenerative Civilization Protocol</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Chosen Palette: Earthy Neutrals -->
-    <!-- Application Structure Plan: The plan is highly complex, blending finance, technology, strategy, and philosophy. A linear document format would be overwhelming. I've designed a thematic, single-page application with a fixed sidebar navigation. This structure acts as an interactive dashboard, allowing users to explore distinct facets of the plan—The Vision, The Model, The Technology, The Rollout, The Philosophy—in any order. This non-linear approach prioritizes user-driven exploration and comprehension of the interconnected components, making the dense information digestible and engaging. -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Web3 Dark Neon -->
+    <!-- Application Structure Plan: To evoke a high-end, revolutionary feel, the structure is a single-page, immersive scroll experience. Content is organized into thematic, animated cards that reveal information dynamically. This replaces the static sidebar with a more fluid, narrative-driven flow. Key interactive elements like the financial model are presented as sleek, integrated modules. This structure is designed to feel less like a report and more like a dashboard for a futuristic protocol, guiding the user through the core concepts in a visually compelling sequence. -->
     <!-- Visualization & Content Choices: 
-        - Cooperative Model: Report Info -> Group sharing cost breakdown. Goal -> Allow users to understand the financial accessibility. Viz/Method -> Interactive range slider and dynamic text output. Interaction -> User drags slider to see cost-per-person change in real-time. Justification -> Makes the core financial model tangible and intuitive. Library -> Vanilla JS.
-        - Scaling Model: Report Info -> Cost per person decreases as more cohorts join. Goal -> Visualize the economic benefit of scaling. Viz/Method -> Bar Chart. Interaction -> Hover tooltips show precise data points. Justification -> A bar chart provides the clearest visual representation of cost reduction over time. Library -> Chart.js.
-        - Tech Stack: Report Info -> Complex integration of HBOT, AI/Digital Twins, and Web3/DAO. Goal -> Simplify and explain the key tech pillars. Viz/Method -> HTML/CSS three-column card layout with icons. Interaction -> Subtle hover effects. Justification -> Avoids overly technical diagrams (no SVG/Mermaid) while clearly segmenting the components for easy understanding.
-        - Rollout Strategy: Report Info -> Phased plan for distribution and compliance. Goal -> Present the strategic timeline clearly. Viz/Method -> Vertical timeline built with HTML/CSS. Interaction -> None needed, focuses on clarity of sequence. Justification -> A timeline is the most universally understood format for presenting a phased rollout. -->
+        - Financial Model: Report Info -> Cooperative cost sharing. Goal -> Demonstrate financial accessibility with a futuristic feel. Viz/Method -> Restyled interactive slider and dynamic text in a "glassmorphism" card. Interaction -> User drags a neon-styled slider. Justification -> Modernizes the key interactive element to match the Web3 aesthetic. Library -> Vanilla JS.
+        - Scaling Model: Report Info -> Cost reduction per cohort. Goal -> Visualize scaling benefits in a dark theme. Viz/Method -> Dark-themed Bar Chart with neon accents. Interaction -> Hover tooltips. Justification -> Ensures data visualization is stylistically coherent with the new design. Library -> Chart.js.
+        - Core Pillars: Report Info -> Key concepts like Digital Twins, GAJRA DAO, C-Hour. Goal -> Detail the project's foundational technologies. Viz/Method -> Grid of animated, glowing cards with more in-depth text from source docs. Interaction -> Mouse hover causes cards to lift and glow brighter. Justification -> The card format breaks down complex ideas into digestible, visually engaging chunks.
+        - Rollout Phases: Report Info -> Strategic timeline. Goal -> Present the roadmap dynamically. Viz/Method -> Horizontal-scrolling timeline with animated, glowing nodes. Interaction -> User scrolls horizontally to explore phases. Justification -> A horizontal timeline is a more engaging and less conventional way to present sequential information. -->
     <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
     <style>
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #FDFBF8;
-            color: #4A4A4A;
+            font-family: 'Poppins', sans-serif;
+            background-color: #0d0c22;
+            color: #e0e0e0;
         }
-        .active-nav {
-            background-color: #EAE3D9;
-            color: #8B5E34;
-            font-weight: 600;
+        .card {
+            background: rgba(23, 22, 48, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
         }
-        .chart-container {
-            position: relative;
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(138, 43, 226, 0.8);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.5), 0 0 10px rgba(255, 255, 255, 0.1) inset;
+        }
+        .glow-text {
+            text-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+        }
+        .neon-border {
+            border: 1px solid rgba(138, 43, 226, 0.4);
+        }
+        .scroll-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        input[type=range] {
+            -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
             width: 100%;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 300px;
-            max-height: 40vh;
         }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 400px;
-            }
+        input[type=range]::-webkit-slider-runnable-track {
+            background: rgba(138, 43, 226, 0.3);
+            height: 0.5rem;
+            border-radius: 0.5rem;
+        }
+        input[type=range]::-moz-range-track {
+            background: rgba(138, 43, 226, 0.3);
+            height: 0.5rem;
+            border-radius: 0.5rem;
         }
         input[type=range]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 24px;
+            margin-top: -6px;
+            background-color: #c084fc;
             height: 24px;
-            background: #8B5E34;
-            cursor: pointer;
+            width: 24px;
             border-radius: 50%;
-            margin-top: -8px;
+            box-shadow: 0 0 15px #c084fc;
         }
         input[type=range]::-moz-range-thumb {
-            width: 24px;
-            height: 24px;
-            background: #8B5E34;
-            cursor: pointer;
+            border: none;
             border-radius: 50%;
+            background-color: #c084fc;
+            height: 24px;
+            width: 24px;
+            box-shadow: 0 0 15px #c084fc;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 50vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 450px;
+            }
         }
     </style>
 </head>
-<body class="flex flex-col md:flex-row">
+<body class="overflow-x-hidden">
 
-    <nav class="w-full md:w-64 bg-[#F5F1EB] p-4 md:fixed md:h-screen top-0 left-0 border-r border-gray-200 z-10">
-        <div class="mb-8">
-            <h1 class="text-xl font-bold text-[#8B5E34]">Aura Geode</h1>
-            <p class="text-sm text-gray-600">Cooperative Rollout Plan</p>
-        </div>
-        <ul>
-            <li><a href="#vision" class="nav-link active-nav block py-2 px-4 rounded-lg mb-2 transition-colors duration-200" data-target="vision">The Vision</a></li>
-            <li><a href="#model" class="nav-link block py-2 px-4 rounded-lg mb-2 transition-colors duration-200" data-target="model">The Model</a></li>
-            <li><a href="#technology" class="nav-link block py-2 px-4 rounded-lg mb-2 transition-colors duration-200" data-target="technology">The Technology</a></li>
-            <li><a href="#rollout" class="nav-link block py-2 px-4 rounded-lg mb-2 transition-colors duration-200" data-target="rollout">The Rollout</a></li>
-            <li><a href="#philosophy" class="nav-link block py-2 px-4 rounded-lg mb-2 transition-colors duration-200" data-target="philosophy">The Philosophy</a></li>
-        </ul>
-    </nav>
+    <div class="absolute top-0 left-0 w-full h-full bg-grid-purple-500/[0.05] -z-10"></div>
+    <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-purple-900/50 to-transparent -z-10"></div>
+    
+    <main class="container mx-auto px-4 py-16 md:py-24">
+        
+        <section id="hero" class="text-center min-h-[60vh] flex flex-col justify-center items-center scroll-hidden">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4">Aura Geode Protocol</h1>
+            <p class="text-xl md:text-2xl text-purple-200/80 max-w-3xl">A Strategic Framework for a Decentralized Health and Longevity Ecosystem, Integrating Hyperbaric Wellness, Digital Twins, and Regenerative Economics.</p>
+             <a href="https://auraofintelligence.github.io/aura-geode/" target="_blank" class="mt-8 px-6 py-3 bg-purple-600/50 text-white font-semibold rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">Explore on GitHub</a>
+        </section>
 
-    <main class="flex-1 md:ml-64 p-6 md:p-10">
-        <section id="vision" class="min-h-screen pt-16">
-            <h2 class="text-4xl font-bold text-[#8B5E34] mb-4">A New Paradigm for Human Potential</h2>
-            <p class="text-lg text-gray-700 mb-8 max-w-3xl">
-                This document outlines a revolutionary strategic framework for a decentralized health and longevity ecosystem. By integrating hyperbaric wellness, personal digital twins, and regenerative economics, the Aura Geode project aims to make preventative healthcare an accessible, community-owned asset. This is an unconventional plan enabled by a confluence of AI, Blockchain, an aging population, and a drive towards decentralized, trustworthy systems.
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Baseline Goal</h3>
-                    <p class="text-3xl font-bold text-[#8B5E34]">70,000 Units</p>
-                    <p class="text-sm text-gray-600 mt-1">Nationwide distribution target</p>
+        <section id="pillars" class="my-24">
+            <h2 class="text-4xl font-bold text-center mb-12 scroll-hidden glow-text text-purple-300">The Core Pillars</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card p-6 rounded-2xl scroll-hidden">
+                    <div class="text-4xl mb-4">🌬️</div>
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">Aura Geode HBOT</h3>
+                    <p class="text-purple-200/80">Mass-produced, cooperative-owned hyperbaric devices. The "Egg eats the Throne" design ensures accessibility for low-mobility users, merging therapy with a mythopoetic narrative of rebirth and regeneration.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Community Reach</h3>
-                    <p class="text-3xl font-bold text-[#8B5E34]">20 Million Adults</p>
-                    <p class="text-sm text-gray-600 mt-1">Projected cycle every 7 years</p>
+                <div class="card p-6 rounded-2xl scroll-hidden" style="transition-delay: 100ms;">
+                     <div class="text-4xl mb-4">🧠</div>
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">Sovereign Digital Twin</h3>
+                    <p class="text-purple-200/80">A personal AI built on a multi-modal cognitive architecture. Utilizes federated learning for privacy-preserving insights, creating a high-fidelity mirror of your world for personalized health protocols and predictive modeling.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Crypto Treasury</h3>
-                    <p class="text-3xl font-bold text-[#8B5E34]">$2.5 Billion</p>
-                    <p class="text-sm text-gray-600 mt-1">GAJRA Earth DAO Investment</p>
+                <div class="card p-6 rounded-2xl scroll-hidden" style="transition-delay: 200ms;">
+                    <div class="text-4xl mb-4">🔗</div>
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">GAJRA Earth DAO</h3>
+                    <p class="text-purple-200/80">A Decentralized Autonomous Organization governing the ecosystem. A $2.5B treasury in assets like XRP, XLM, & HBAR funds expansion, governed by the community through "The Weaver Protocol" for true digital democracy.</p>
                 </div>
             </div>
         </section>
 
-        <section id="model" class="min-h-screen pt-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">The Cooperative Financial Model</h2>
-            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200 mb-12">
-                 <h3 class="text-2xl font-semibold text-gray-800 mb-4">Interactive Cost Sharing</h3>
-                 <p class="text-gray-600 mb-6">The core of the model is a microfinance group-loan structure that makes the high initial cost of an HBOT machine accessible. Use the slider below to see how the cost per person decreases as more people join a cooperative group to share a single machine.</p>
-                <div class="mb-4">
-                    <label for="group-size" class="block text-lg font-medium text-gray-700 mb-2">Group Members: <span id="group-size-label" class="font-bold text-[#8B5E34]">7</span></label>
-                    <input id="group-size" type="range" min="4" max="7" value="7" class="w-full h-2 bg-[#EAE3D9] rounded-lg appearance-none cursor-pointer">
+        <section id="model" class="my-24 scroll-hidden">
+            <h2 class="text-4xl font-bold text-center mb-12 glow-text text-purple-300">The Cooperative Economic Engine</h2>
+            <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
+                <div class="lg:col-span-2 text-purple-200/90">
+                    <h3 class="text-2xl font-bold mb-4">Microfinance, Redefined.</h3>
+                    <p class="mb-4">The Aura Geode model makes a $35,000AUD asset accessible through a group-loan structure. As more members join a cooperative, the individual cost plummets, turning preventative health into a community-owned utility, not a luxury.</p>
+                    <p>This approach democratizes access and builds a resilient, self-funding network from the ground up.</p>
                 </div>
-                <div class="text-center bg-[#F5F1EB] p-6 rounded-lg">
-                    <p class="text-lg text-gray-700">Cost per person (at $35,000/unit):</p>
-                    <p class="text-5xl font-extrabold text-[#8B5E34] mt-2" id="cost-output">$5,000</p>
-                    <p class="text-md text-gray-600 mt-2">Initial entry loan target</p>
+                <div class="lg:col-span-3 card p-8 rounded-2xl">
+                    <div class="mb-6">
+                        <label for="group-size" class="flex justify-between text-lg font-medium text-purple-200 mb-2">
+                            <span>Group Members:</span>
+                            <span id="group-size-label" class="font-bold text-purple-300">7</span>
+                        </label>
+                        <input id="group-size" type="range" min="4" max="7" value="7">
+                    </div>
+                    <div class="text-center bg-black/20 p-6 rounded-lg neon-border">
+                        <p class="text-lg text-purple-200/80">Cost Per Person (AUD):</p>
+                        <p class="text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mt-2" id="cost-output">$5,000</p>
+                        <p class="text-md text-purple-200/60 mt-2">Target for initial entry loan</p>
+                    </div>
                 </div>
             </div>
-            
-            <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
-                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Scaling Through Cohorts</h3>
-                 <p class="text-gray-600 mb-8">As the cooperative grows, new cohorts can be financed by the revenue of existing ones, dramatically lowering the entry cost for new members. This chart illustrates the projected cost reduction as the network scales over its first year.</p>
-                <div class="chart-container">
+        </section>
+
+        <section id="scaling" class="my-24 scroll-hidden">
+             <h2 class="text-4xl font-bold text-center mb-12 glow-text text-purple-300">Fractal Scaling & Network Effects</h2>
+             <p class="text-center text-purple-200/80 max-w-3xl mx-auto mb-12">The system is designed for exponential growth. Revenue from initial cohorts is reinvested to subsidize entry for new members, creating a powerful network effect that lowers the barrier to entry over time.</p>
+            <div class="card p-8 rounded-2xl">
+                 <div class="chart-container">
                     <canvas id="scalingChart"></canvas>
                 </div>
             </div>
         </section>
 
-        <section id="technology" class="min-h-screen pt-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">The Integrated Technology Stack</h2>
-            <p class="text-lg text-gray-700 mb-8 max-w-3xl">The Aura Geode ecosystem is built on three interconnected pillars: the physical hardware, an intelligent software layer, and a decentralized economic and governance framework. Together, they create a comprehensive system for personalized, preventative health.</p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">🌬️</div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Aura Geode HBOT</h3>
-                    <p class="text-gray-600">A mass-produced, steel-frame Hyperbaric Oxygen Therapy device, designed for accessibility and cooperative use. Includes a luxury "Crystalline Geode" line to build a mythopoetic narrative and drive early adoption.</p>
+        <section id="deep-tech" class="my-24">
+            <h2 class="text-4xl font-bold text-center mb-12 scroll-hidden glow-text text-purple-300">The Regenerative Protocol Stack</h2>
+             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card p-6 rounded-2xl scroll-hidden">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">The Weaver Protocol</h3>
+                    <p class="text-purple-200/80">A sentient community operating system. It uses a "Mixture of Experts" AI agent swarm to analyze community needs and individual desires, presenting optimal, serendipitous pathways to users via the "Magic Compass" interface.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">🧠</div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Digital Twin & AI</h3>
-                    <p class="text-gray-600">Each user protocol contributes to a personal digital twin, enabling AI-driven health insights. Federated learning ensures privacy while allowing for large-scale clinical trials and data analysis on-chain.</p>
+                <div class="card p-6 rounded-2xl scroll-hidden" style="transition-delay: 100ms;">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">C-Hour: A New Asset Class</h3>
+                    <p class="text-purple-200/80">The "Community-Hour" is a novel regenerative asset that values time spent on community and environmental well-being. It creates a braided economy that rewards contributions excluded from traditional capital markets, making regeneration a financially viable activity.</p>
                 </div>
-                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 text-center hover:shadow-lg transition-shadow">
-                    <div class="text-4xl mb-4">🔗</div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Web3 & GAJRA DAO</h3>
-                    <p class="text-gray-600">The entire network is governed by the GAJRA Earth DAO. A $2.5B crypto treasury offsets costs, while a novel "C-Hour" regenerative asset class tracks and rewards time spent on community and environmental well-being.</p>
+             </div>
+        </section>
+
+        <section id="rollout" class="my-24 scroll-hidden">
+            <h2 class="text-4xl font-bold text-center mb-12 glow-text text-purple-300">Global Rollout Strategy</h2>
+            <div class="relative">
+                <div class="absolute left-1/2 top-0 h-full w-0.5 bg-purple-500/30"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12">
+                    
+                    <div class="mb-16 md:text-right">
+                        <div class="card p-6 rounded-xl relative">
+                            <div class="absolute left-auto -right-12 md:right-auto md:-left-12 top-1/2 -translate-y-1/2 w-6 h-6 bg-purple-400 rounded-full border-4 border-[#0d0c22] shadow-[0_0_15px_#c084fc]"></div>
+                            <h3 class="text-xl font-bold text-purple-300">Phase 1: Foundation & Compliance</h3>
+                            <p class="text-purple-200/80 mt-2">Establish legal co-op structure in Australia and begin TGA compliance for the HBOT device as a Class IIa medical device.</p>
+                        </div>
+                    </div>
+                    <div></div>
+
+                    <div></div>
+                    <div class="mb-16">
+                        <div class="card p-6 rounded-xl relative">
+                             <div class="absolute -left-12 top-1/2 -translate-y-1/2 w-6 h-6 bg-purple-400 rounded-full border-4 border-[#0d0c22] shadow-[0_0_15px_#c084fc]"></div>
+                            <h3 class="text-xl font-bold text-purple-300">Phase 2: Pilot Program</h3>
+                            <p class="text-purple-200/80 mt-2">Launch pilot programs in key communities, initiating the ethical, education-first direct sales strategy and refining the microfinance model.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-16 md:text-right">
+                        <div class="card p-6 rounded-xl relative">
+                             <div class="absolute left-auto -right-12 md:right-auto md:-left-12 top-1/2 -translate-y-1/2 w-6 h-6 bg-purple-400 rounded-full border-4 border-[#0d0c22] shadow-[0_0_15px_#c084fc]"></div>
+                            <h3 class="text-xl font-bold text-purple-300">Phase 3: Fractal Scaling & DAO</h3>
+                            <p class="text-purple-200/80 mt-2">Nationwide distribution via a fractal plan. Onboard users to the blockchain and fully integrate the GAJRA Earth DAO for treasury management and governance.</p>
+                        </div>
+                    </div>
+                    <div></div>
+
+                    <div></div>
+                    <div>
+                        <div class="card p-6 rounded-xl relative">
+                             <div class="absolute -left-12 top-1/2 -translate-y-1/2 w-6 h-6 bg-purple-400 rounded-full border-4 border-[#0d0c22] shadow-[0_0_15px_#c084fc]"></div>
+                            <h3 class="text-xl font-bold text-purple-300">Phase 4: Global Expansion</h3>
+                            <p class="text-purple-200/80 mt-2">Leverage the successful Australian model, Web3 infrastructure, and the DAO to create a borderless, decentralized network for preventative health.</p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>
-
-        <section id="rollout" class="min-h-screen pt-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-8">Australian Rollout Strategy</h2>
-            <div class="relative pl-8 border-l-2 border-[#EAE3D9]">
-                <div class="mb-12">
-                    <div class="absolute w-6 h-6 bg-[#8B5E34] rounded-full -left-3 border-4 border-[#FDFBF8]"></div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Phase 1: Foundation & Compliance</h3>
-                    <p class="text-gray-600">Establish the legal cooperative structure under Australia's Co-operatives National Law (CNL). Begin the Therapeutic Goods Administration (TGA) compliance process for the HBOT device as a Class IIa medical device. Secure initial seed funding and partnerships.</p>
-                </div>
-                <div class="mb-12">
-                    <div class="absolute w-6 h-6 bg-[#8B5E34] rounded-full -left-3 border-4 border-[#FDFBF8]"></div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Phase 2: Pilot Program & Community Sales</h3>
-                    <p class="text-gray-600">Launch pilot programs in key communities (e.g., Kelvin Grove, Brisbane). Initiate the direct sales strategy, focusing on an ethical, education-first approach. Refine the microfinance loan model with the first cohorts of users.</p>
-                </div>
-                <div class="mb-12">
-                    <div class="absolute w-6 h-6 bg-[#8B5E34] rounded-full -left-3 border-4 border-[#FDFBF8]"></div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Phase 3: Fractal Scaling & DAO Integration</h3>
-                    <p class="text-gray-600">Implement the fractal plan for nationwide distribution. Onboard users and devices onto the blockchain for clinical trial tracking. Fully integrate the GAJRA Earth DAO for treasury management and governance, allowing the crypto-economic engine to subsidize expansion.</p>
-                </div>
-                <div>
-                    <div class="absolute w-6 h-6 bg-[#8B5E34] rounded-full -left-3 border-4 border-[#FDFBF8]"></div>
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2">Phase 4: Global Vision</h3>
-                    <p class="text-gray-600">Utilize the successful Australian model as a blueprint for global expansion. Leverage the DAO and Web3 infrastructure to create a borderless, decentralized network for preventative health and regenerative economics.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="philosophy" class="min-h-screen pt-16">
-            <h2 class="text-3xl font-bold text-gray-800 mb-6">The Regenerative Philosophy</h2>
-            <p class="text-lg text-gray-700 mb-8 max-w-3xl">This is more than a business plan; it is a protocol for a regenerative civilization. It's a mega-bet on preventative health, powered by a bottom-up direct sales strategy and a top-down vision for Web3 adoption. The goal is to create a system that values and rewards contributions currently excluded from traditional capital markets.</p>
-            <blockquote class="border-l-4 border-[#8B5E34] pl-6 py-4 my-8 bg-white shadow-sm">
-                <p class="text-xl italic text-gray-800">"The C-Hour Regenerative Asset Class represents time spent on community and environmental regeneration. By integrating this into our economic model, we create a financial incentive for actions that build a healthier planet and more connected communities, fundamentally re-aligning value with well-being."</p>
-            </blockquote>
-            <p class="text-lg text-gray-700 max-w-3xl">The "mythopoetic narrative" of the Crystalline Geode and the "egg eats the throne" concept are not mere marketing; they are strategic tools to build a powerful story. Humans are creatures of narrative, and by embedding the technology within a compelling, archetypal story, we can accelerate adoption and create a cultural movement, not just a product rollout. This initiative aims to be the most revolutionary business plan in history by braiding technology, community, and meaning into a single, cohesive whole.</p>
-        </section>
+        
     </main>
 
     <script>
@@ -191,25 +237,21 @@
             const groupSizeLabel = document.getElementById('group-size-label');
             const costOutput = document.getElementById('cost-output');
             
-            const machineCost = 35000;
-            const costData = {
-                4: 8750,
-                5: 7000,
-                6: 5833,
-                7: 5000
-            };
+            const costData = { 4: 8750, 5: 7000, 6: 5833, 7: 5000 };
 
             function updateCost() {
                 const size = groupSizeSlider.value;
                 groupSizeLabel.textContent = size;
-                const cost = costData[size] || 0;
-                costOutput.textContent = `$${cost.toLocaleString()}`;
+                costOutput.textContent = `$${costData[size].toLocaleString()}`;
             }
 
             groupSizeSlider.addEventListener('input', updateCost);
             updateCost();
 
             const scalingCtx = document.getElementById('scalingChart').getContext('2d');
+            Chart.defaults.color = '#a7a7a7';
+            Chart.defaults.borderColor = 'rgba(138, 43, 226, 0.2)';
+
             const scalingChart = new Chart(scalingCtx, {
                 type: 'bar',
                 data: {
@@ -217,86 +259,53 @@
                     datasets: [{
                         label: 'Cost Per Person ($AUD)',
                         data: [5000, 2500, 1667, 1000],
-                        backgroundColor: '#C8A37E',
-                        borderColor: '#8B5E34',
+                        backgroundColor: 'rgba(192, 132, 252, 0.5)',
+                        borderColor: '#c084fc',
                         borderWidth: 1,
                         borderRadius: 5,
+                        hoverBackgroundColor: 'rgba(192, 132, 252, 0.8)'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: {
-                            display: false
-                        },
+                        legend: { display: false },
                         tooltip: {
+                            backgroundColor: '#171630',
+                            titleColor: '#c084fc',
+                            bodyColor: '#e0e0e0',
                             callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' }).format(context.parsed.y);
-                                    }
-                                    return label;
-                                }
+                                label: context => `$${context.parsed.y.toLocaleString()} AUD`
                             }
                         }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Cost per Person ($AUD)'
-                            }
+                            grid: { color: 'rgba(138, 43, 226, 0.1)' },
+                            ticks: { color: '#a7a7a7' },
+                            title: { display: true, text: 'Cost per Person ($AUD)', color: '#c084fc' }
                         },
                         x: {
-                             title: {
-                                display: true,
-                                text: 'Number of Cohorts (~1 Year)'
-                            }
+                            grid: { display: false },
+                            ticks: { color: '#a7a7a7' },
+                            title: { display: true, text: 'Network Scale (~1 Year)', color: '#c084fc' }
                         }
                     }
                 }
             });
 
-            const navLinks = document.querySelectorAll('.nav-link');
-            const sections = document.querySelectorAll('main section');
-
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.3
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        navLinks.forEach(link => {
-                            link.classList.remove('active-nav');
-                            if (link.dataset.target === entry.target.id) {
-                                link.classList.add('active-nav');
-                            }
-                        });
+                        entry.target.classList.add('scroll-visible');
                     }
                 });
-            }, observerOptions);
+            }, { threshold: 0.1 });
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-
-            navLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const targetId = link.getAttribute('href');
-                    document.querySelector(targetId).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
+            document.querySelectorAll('.scroll-hidden').forEach(el => {
+                observer.observe(el);
             });
         });
     </script>

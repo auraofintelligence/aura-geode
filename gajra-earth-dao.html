@@ -14,12 +14,63 @@
             background-color: #0d0c22;
             color: #e0e0e0;
         }
+        .card {
+            background: rgba(23, 22, 48, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(138, 43, 226, 0.8);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.5), 0 0 10px rgba(255, 255, 255, 0.1) inset;
+        }
+        .glow-text {
+            text-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+        }
     </style>
 </head>
 <body class="overflow-x-hidden">
+    <div class="absolute top-0 left-0 w-full h-full bg-grid-purple-500/[0.05] -z-10"></div>
+    <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-purple-900/50 to-transparent -z-10"></div>
+
     <main class="container mx-auto px-4 py-16 md:py-24">
-        <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4">GAJRA Earth DAO</h1>
-        <a href="/" class="mt-8 px-6 py-3 bg-purple-600/50 text-white font-semibold rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">Back to Home</a>
+
+        <section id="hero" class="text-center mb-24">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4">GAJRA Earth DAO</h1>
+            <p class="text-xl md:text-2xl text-purple-200/80 max-w-3xl mx-auto">A decentralized ecosystem governed by its community, for its community, powered by a multi-billion dollar treasury.</p>
+        </section>
+
+        <section id="features" class="my-24">
+            <h2 class="text-4xl font-bold text-center mb-12 glow-text text-purple-300">Governance Model</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6 rounded-2xl">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">Digital Democracy</h3>
+                    <p class="text-purple-200/80">Governed by "The Weaver Protocol," ensuring true community-led decision-making and direction.</p>
+                </div>
+                <div class="card p-6 rounded-2xl">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">Substantial Treasury</h3>
+                    <p class="text-purple-200/80">A $2.5B treasury in assets like XRP, XLM, & HBAR to fund expansion and regenerative projects.</p>
+                </div>
+                <div class="card p-6 rounded-2xl">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">Community Governed</h3>
+                    <p class="text-purple-200/80">Every member has a voice in the DAO's operations, from funding initiatives to protocol upgrades.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="narrative" class="my-24 text-center">
+            <h2 class="text-4xl font-bold text-center mb-12 glow-text text-purple-300">The Weaver Protocol</h2>
+            <div class="card p-8 rounded-2xl max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold text-purple-300 mb-3">A Sentient Governance Layer</h3>
+                <p class="text-purple-200/80">The Weaver Protocol is more than a voting system; it's a sentient community operating system. It analyzes proposals, community sentiment, and long-term goals to facilitate a truly intelligent and responsive governance structure. This ensures the DAO evolves in alignment with the collective will and wisdom of its members, creating a resilient and thriving ecosystem.</p>
+            </div>
+        </section>
+
+        <div class="text-center mt-24">
+            <a href="index.html" class="px-8 py-4 bg-purple-600/50 text-white font-semibold rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">Back to Home</a>
+        </div>
+
     </main>
 </body>
 </html>

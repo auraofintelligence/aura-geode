@@ -131,15 +131,23 @@
                     </p>
                 </div>
             </div>
+
         </section>
 
         <!-- Step 3: Implement the "Genesis Protocol" Timeline -->
         <section id="genesis-protocol" class="fade-in-section text-center">
             <h2 class="text-4xl font-bold mb-4 text-purple-300" style="text-shadow: 0 0 8px var(--glow-color);">The 120-Hour Aura Genesis Protocol</h2>
             <p class="text-purple-200/80 max-w-3xl mx-auto mb-16">
-                The core user experience is a structured 60-session, 120-hour journey designed to create a comprehensive digital twin. The protocol is structured in three distinct phases.
+                The core user experience is a structured, 60-session journey designed to create a comprehensive digital twin. This protocol is a holistic, two-part system: a 120-hour therapeutic progression inside the Aura Geode, which runs in parallel with a 60-day, fully integrated lifestyle reset outside the Geode. Together, they create a complete biological and digital transformation.
             </p>
             <div class="relative w-full max-w-5xl mx-auto">
+                <!--
+                    NOTE: Timeline Interactivity (Animations & Pop-ups)
+                    The following timeline is interactive. The line draws itself and the nodes fade in
+                    as the user scrolls. This is handled by the JavaScript IntersectionObserver at the
+                    bottom of this file, which adds the '.is-visible' class. The hover pop-ups are
+                    handled by pure CSS using the ':hover' pseudo-class on '.timeline-node-container'.
+                -->
                 <!-- Timeline SVG -->
                 <svg width="100%" height="20" class="absolute top-1/2 -translate-y-1/2 -z-10">
                     <path d="M 0 10 H 10000" stroke="url(#line-gradient)" stroke-width="2" class="timeline-path"/>
@@ -152,36 +160,79 @@
                 </svg>
                 <!-- Nodes -->
                 <div class="flex justify-between items-center">
-                    <!-- Node 1 -->
+                    <!-- Milestone Node 1: Session 1 (Initiation) -->
                     <div class="timeline-node-container relative">
-                        <div class="timeline-node w-8 h-8 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                            <span class="font-bold">1</span>
+                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
+                            <span class="font-bold text-xs" title="Session 1">S1</span>
                         </div>
                         <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Discovery (Sessions 1-20)</h4>
-                            <p class="text-sm text-purple-200/80">This initial phase maps the user's unique physiological and psychological dose-response to a wide range of controlled stimuli, such as different atmospheric compositions, light frequencies, and soundscapes.</p>
+                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 1: Discovery & Resilience Mapping</h4>
+                            <p class="text-sm text-purple-200/80">The journey begins. Sessions 1-20 use short, sequenced 'micro-exposures' to a wide range of modalities (light, sound, atmospheres) to map your unique physiological dose-response, akin to an allergy test for wellness stimuli.</p>
                         </div>
                     </div>
-                    <!-- Node 2 -->
+                    <!-- Milestone Node 2: Session 21 -->
                     <div class="timeline-node-container relative">
-                        <div class="timeline-node w-8 h-8 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                             <span class="font-bold">2</span>
+                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
+                            <span class="font-bold text-xs" title="Session 21">S21</span>
                         </div>
                         <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">AI-Design (Sessions 21-40)</h4>
-                            <p class="text-sm text-purple-200/80">The system's AI Core acts as a composer, designing complete, synergistic 2-hour therapeutic sessions. It sequences different modalities to achieve specific outcomes like deep relaxation or enhanced cognitive focus, creating a protocol uniquely tailored to the individual.</p>
+                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 2: AI-Driven Chrono-Therapeutic Design</h4>
+                            <p class="text-sm text-purple-200/80">The AI Core acts as a composer, designing complete, synergistic 2-hour therapeutic 'symphonies' to achieve specific outcomes (e.g., Deep Relaxation) based on the data from Phase 1.</p>
                         </div>
                     </div>
-                    <!-- Node 3 -->
+                    <!-- Milestone Node 3: Session 41 -->
                     <div class="timeline-node-container relative">
-                        <div class="timeline-node w-8 h-8 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                             <span class="font-bold">3</span>
+                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
+                            <span class="font-bold text-xs" title="Session 41">S41</span>
                         </div>
                         <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Validation (Sessions 41-60)</h4>
-                            <p class="text-sm text-purple-200/80">The AI refines the user's optimal 'Prime Protocol' and runs placebo-controlled versions (e.g., delivering normal air when the user expects pure oxygen) to rigorously quantify the user's individual placebo response and validate the protocol's effects.</p>
+                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 3: Validation & Mind-Over-Matter Quantification</h4>
+                            <p class="text-sm text-purple-200/80">The AI refines your optimal 'Prime Protocol' and runs placebo-controlled versions to rigorously quantify your individual placebo response, or 'Mind-Over-Matter' coefficient.</p>
                         </div>
                     </div>
+                    <!-- Milestone Node 4: Session 60 (Completion) -->
+                    <div class="timeline-node-container relative">
+                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
+                            <i class="fas fa-check text-white" title="Session 60"></i>
+                        </div>
+                        <div class="timeline-node-content text-left">
+                            <h4 class="font-bold text-lg text-purple-300 mb-2">Genesis Complete</h4>
+                            <p class="text-sm text-purple-200/80">Upon completion, your foundational Digital Twin is born and socialized, and the system generates your final 'Biological Passport' and 'Placebo Coefficient' metrics.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gateway Cards -->
+            <!-- NOTE: The images below are placeholders as requested in the design brief. -->
+            <div class="mt-24 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <!-- Card 1: 120-Hour Protocol -->
+                <div class="animated-card p-6 md:p-8 text-left flex flex-col">
+                    <img src="https://placehold.co/600x400/0d0c22/a7a7d2?text=Artistic+shot+of+capsule+interior" alt="Artistic shot of the inside of the Aura Geode capsule" class="rounded-xl mb-6 w-full">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">Inside the Geode: The 120-Hour Protocol</h3>
+                    <p class="text-purple-200/80 mb-6 flex-grow">
+                        Explore the minute-by-minute science of the in-capsule experience. This section details the
+                        <strong>AuraOS Chrono-Therapeutic Engine</strong>, the
+                        <strong>Personalized Atmosphere Delivery System (PADS)</strong>, the full
+                        <strong>Modality Stack of light, scent, and sound</strong>, and the real-time
+                        <strong>'Dialogue Loop'</strong> that builds your twin's mental model.
+                    </p>
+                    <a href="protocol-120-hours.html" class="mt-auto inline-block text-center px-6 py-3 bg-purple-600/80 text-white font-semibold rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">
+                        Explore the In-Capsule Protocol
+                    </a>
+                </div>
+                <!-- Card 2: 60-Day Reset -->
+                <div class="animated-card p-6 md:p-8 text-left flex flex-col">
+                    <img src="https://placehold.co/600x400/0d0c22/a7a7d2?text=Dynamic+collage+of+healthy+lifestyle" alt="Collage of healthy lifestyle images: hiking, ocean, healthy food" class="rounded-xl mb-6 w-full">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">Outside the Geode: The 60-Day Lifestyle Reset</h3>
+                    <p class="text-purple-200/80 mb-6 flex-grow">
+                        Discover the holistic framework that integrates the therapeutic sessions into your daily life. This section details the master-designed retreat protocols,
+                        <strong>'Terra-Fusion' field excursions</strong> to prescribed natural environments, and the integration of metabolic strategies like
+                        <strong>intermittent fasting</strong> to amplify the protocol's effects.
+                    </p>
+                    <a href="protocol-60-days.html" class="mt-auto inline-block text-center px-6 py-3 bg-purple-600/80 text-white font-semibold rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">
+                        Explore the Lifestyle Reset
+                    </a>
                 </div>
             </div>
         </section>
@@ -247,6 +298,9 @@
             });
 
             // 2. Specific observer for the timeline animation
+            // This script handles the drawing of the timeline path and the sequential appearance of the nodes
+            // as the user scrolls the '#genesis-protocol' section into view. It works by adding the
+            // '.is-visible' class, which triggers the animations defined in the <style> tag in the <head>.
             const timelineSection = document.querySelector('#genesis-protocol');
             if (timelineSection) {
                 const timelineObserver = new IntersectionObserver((entries) => {

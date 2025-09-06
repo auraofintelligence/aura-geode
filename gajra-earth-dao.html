@@ -91,6 +91,57 @@
             display: block;
         }
 
+        /* Fractal Governance Styles */
+        .fractal-container {
+            min-height: 350px; /* for spacing */
+        }
+        .fractal-node {
+            position: absolute;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease-in-out;
+            box-shadow: 0 0 10px var(--glow-color), 0 0 20px var(--glow-color) inset;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        .fractal-node.is-visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .fractal-label {
+            position: absolute;
+            top: -2.2rem;
+            white-space: nowrap;
+            color: var(--text-secondary);
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--glow-color);
+            opacity: 0.8;
+        }
+        .fractal-node.L3 { width: 320px; height: 320px; transition-delay: 0s; }
+        .fractal-node.L2 { width: 220px; height: 220px; transition-delay: 0.2s; }
+        .fractal-node.L1 { width: 120px; height: 120px; transition-delay: 0.4s; }
+        .fractal-node.L0 { width: 40px; height: 40px; background: var(--secondary-color); border-width: 0; transition-delay: 0.6s; }
+        .fractal-node.L0 .fractal-label { display: none; }
+
+        /* Hover & Highlight Effects */
+        .fractal-node.highlight, .fractal-node:hover {
+            border-color: var(--secondary-color);
+            transform: scale(1.05);
+            box-shadow: 0 0 35px var(--glow-color), 0 0 15px var(--secondary-color);
+        }
+        .fractal-node.highlight .fractal-label, .fractal-node:hover .fractal-label {
+            color: #fff;
+            opacity: 1;
+            text-shadow: 0 0 8px #fff;
+        }
+        .fractal-content-card {
+            cursor: pointer;
+        }
+
     </style>
 </head>
 <body class="antialiased">
@@ -186,55 +237,61 @@
             </div>
         </section>
 
-        <!-- Step 4: Visualize the Governance Rollout -->
-        <section id="decentralization" class="fade-in-section text-center">
-            <h2 class="text-4xl font-bold mb-16 text-purple-300" style="text-shadow: 0 0 8px var(--glow-color);">Proposed Path to Decentralization</h2>
-            <div class="relative w-full max-w-5xl mx-auto">
-                <!-- Timeline SVG -->
-                <svg width="100%" height="20" class="absolute top-1/2 -translate-y-1/2 -z-10">
-                    <path d="M 0 10 H 10000" stroke="url(#line-gradient-2)" stroke-width="2" class="timeline-path"/>
-                    <defs>
-                        <linearGradient id="line-gradient-2" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="var(--primary-color)" />
-                            <stop offset="100%" stop-color="var(--secondary-color)" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-                <!-- Nodes -->
-                <div class="flex justify-between items-center">
-                    <!-- Node 1 -->
-                    <div class="timeline-node-container relative">
-                        <div class="timeline-node w-8 h-8 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                            <span class="font-bold">1</span>
-                        </div>
-                        <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 1 - Core Team Governance</h4>
-                            <p class="text-sm text-purple-200/80">"Initially, a centralized core team will make key strategic decisions to ensure a strong and stable foundation for the project."</p>
-                        </div>
-                    </div>
-                    <!-- Node 2 -->
-                    <div class="timeline-node-container relative">
-                        <div class="timeline-node w-8 h-8 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                             <span class="font-bold">2</span>
-                        </div>
-                        <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 2 - Distributed Governance</h4>
-                            <p class="text-sm text-purple-200/80">"As the ecosystem grows, early adopters and key stakeholders will be granted a significant role in the decision-making process, enabling a more inclusive and collaborative approach."</p>
-                        </div>
-                    </div>
-                    <!-- Node 3 -->
-                    <div class="timeline-node-container relative">
-                        <div class="timeline-node w-8 h-8 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                             <span class="font-bold">3</span>
-                        </div>
-                        <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 3 - Fully Decentralized Governance</h4>
-                            <p class="text-sm text-purple-200/80">"Ultimately, all governance power will be transferred to token holders, who will be empowered to direct the ecosystem through on-chain proposals, voting, and consensus mechanisms."</p>
-                        </div>
-                    </div>
+        <!-- Fractal Governance Section -->
+        <section id="fractal-governance" class="fade-in-section text-center">
+            <h2 class="text-4xl font-bold mb-4 text-purple-300" style="text-shadow: 0 0 8px var(--glow-color);">Fractal Governance: A Planetary-Scale System</h2>
+            <p class="text-purple-200/80 max-w-4xl mx-auto mb-20">
+                "The DAO's architecture is not a monolithic, top-down structure; it is a living, fractal network that scales from the individual to the planetary level, ensuring local autonomy and global coherence."
+            </p>
+
+            <div class="fractal-container relative h-96 flex items-center justify-center mb-16">
+                <div class="fractal-node L3" data-layer="L3"><span class="fractal-label">L3 Planetary Commons</span></div>
+                <div class="fractal-node L2" data-layer="L2"><span class="fractal-label">L2 Bioregion Guilds</span></div>
+                <div class="fractal-node L1" data-layer="L1"><span class="fractal-label">L1 Neighbour Meshes</span></div>
+                <div class="fractal-node L0" data-layer="L0"></div>
+            </div>
+
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 text-left">
+                <div class="animated-card p-6 md:p-8 fractal-content-card" data-layer="L0-L1">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">L0 Home Cell & L1 Neighbour Mesh</h3>
+                    <p class="text-purple-200/80">"The system begins with the individual's sovereign node (L0), where all data is created and stored. These nodes connect peer-to-peer to form L1 Meshes of 8-50 homes, used for local needs like seed swaps and surplus food routing, governed by a local DAO."</p>
+                </div>
+                <div class="animated-card p-6 md:p-8 fractal-content-card" data-layer="L2">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">L2 Bioregion Guild</h3>
+                    <p class="text-purple-200/80">"Anonymized data summaries from L1 Meshes are aggregated at the L2 Guild level, often defined by a watershed or ecoregion. This Guild's DAO uses the collective data to create climate-specific 'Pattern Packs' and seasonal calendars for the entire community."</p>
+                </div>
+                <div class="animated-card p-6 md:p-8 fractal-content-card" data-layer="L3">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">L3 Planetary Commons</h3>
+                    <p class="text-purple-200/80">"The global layer, governed by the GAJRA Earth DAO. The L3 Commons maintains the master open-source protocols, taxonomic indices, and ethical standards. It also serves as a replication hub for the most valuable knowledge from all bioregions, creating a permanent library for humanity."</p>
                 </div>
             </div>
         </section>
+
+        <!-- The Regenerative Social Contract Module -->
+        <section id="social-contract" class="fade-in-section">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold mb-12 text-purple-300" style="text-shadow: 0 0 8px var(--glow-color);">The Regenerative Social Contract</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <!-- Card 1: The Sovereign Wealth Fund (SWF) -->
+                <div class="animated-card p-6 md:p-8 text-left">
+                    <img src="https://placehold.co/600x400/0d0c22/a7a7d2?text=Sovereign+Wealth+Fund" alt="Abstract graphic of value flowing into a central fund" class="rounded-xl mb-6 w-full">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">An Engine for Intergenerational Equity</h3>
+                    <p class="text-purple-200/80">
+                        "The profits from the ecosystem's commercial enterprises flow directly into a collectively-owned Sovereign Wealth Fund (SWF), governed by the DAO. This fund provides a perpetual source of capital for social services, underwrites the value of the C-Hour, and ensures prosperity is shared across all generations."
+                    </p>
+                </div>
+                <!-- Card 2: The Sovereign Skills Wallet -->
+                <div class="animated-card p-6 md:p-8 text-left">
+                    <img src="https://placehold.co/600x400/0d0c22/a7a7d2?text=Sovereign+Skills+Wallet" alt="Graphic of a digital wallet on a phone" class="rounded-xl mb-6 w-full">
+                    <h3 class="text-2xl font-bold text-purple-300 mb-3">A New Definition of Worth</h3>
+                    <p class="text-purple-200/80">
+                        "Every citizen has a blockchain-secured 'Sovereign Skills Wallet'. This digital portfolio holds tamper-proof credentials recognizing the full spectrum of human capability, giving equal weight to modern degrees and verified Traditional & Community Credentials like elder care, local ecology, and ancestral crafts."
+                    </p>
+                </div>
+            </div>
+        </section>
+
 
         <div class="text-center mt-24 fade-in-section">
             <a href="index.html" class="px-8 py-4 bg-purple-600/50 text-white font-semibold rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">Back to Home</a>
@@ -262,37 +319,39 @@
                 fadeInObserver.observe(section);
             });
 
-            // 2. Specific observer for the timeline animation
-            const timelineSection = document.querySelector('#decentralization');
-            if (timelineSection) {
-                const timelineObserver = new IntersectionObserver((entries) => {
+            // 2. Observer for the (now removed) timeline animation is cleaned up.
+
+            // 3. Observer for Fractal Governance animation
+            const fractalContainer = document.querySelector('.fractal-container');
+            if (fractalContainer) {
+                const fractalObserver = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting) {
-                        const timelinePath = timelineSection.querySelector('.timeline-path');
-                        const timelineNodes = timelineSection.querySelectorAll('.timeline-node');
-
-                        // Animate the SVG path drawing
-                        if (timelinePath) {
-                            timelinePath.classList.add('is-visible');
-                        }
-
-                        // Animate the nodes appearing in sequence
-                        if (timelineNodes.length > 0) {
-                            timelineNodes.forEach((node, index) => {
-                                setTimeout(() => {
-                                    node.classList.add('is-visible');
-                                }, 800 + (index * 400)); // Stagger the node animations
-                            });
-                        }
-
-                        // Animation is done, stop observing
-                        timelineObserver.unobserve(timelineSection);
+                        const fractalNodes = fractalContainer.querySelectorAll('.fractal-node');
+                        fractalNodes.forEach(node => node.classList.add('is-visible'));
+                        fractalObserver.unobserve(fractalContainer);
                     }
-                }, {
-                    threshold: 0.4 // Trigger when 40% of the timeline is visible
-                });
-
-                timelineObserver.observe(timelineSection);
+                }, { threshold: 0.5 });
+                fractalObserver.observe(fractalContainer);
             }
+
+            // 4. Hover effect for Fractal Governance cards
+            const fractalContentCards = document.querySelectorAll('.fractal-content-card');
+            fractalContentCards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const layer = card.dataset.layer;
+                    if (layer === 'L0-L1') {
+                        document.querySelector('.fractal-node.L0')?.classList.add('highlight');
+                        document.querySelector('.fractal-node.L1')?.classList.add('highlight');
+                    } else {
+                        document.querySelector(`.fractal-node.${layer}`)?.classList.add('highlight');
+                    }
+                });
+                card.addEventListener('mouseleave', () => {
+                    document.querySelectorAll('.fractal-node.highlight').forEach(node => {
+                        node.classList.remove('highlight');
+                    });
+                });
+            });
         });
     </script>
 </body>

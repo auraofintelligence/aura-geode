@@ -91,6 +91,69 @@
             display: block;
         }
 
+        /* New Timeline Styles */
+        .new-timeline-path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 3s ease-in-out;
+        }
+        .new-timeline-path.is-visible {
+            stroke-dashoffset: 0;
+        }
+
+        .timeline-node-group {
+            opacity: 0;
+            transform-origin: center 75px;
+            transition: opacity 0.4s ease-out;
+        }
+        .timeline-node-group.is-visible {
+            opacity: 1;
+        }
+        .timeline-node-group.is-visible .timeline-node-circle {
+            animation: pulse-glow 2.5s infinite ease-in-out;
+        }
+
+        .timeline-node-circle {
+            fill: var(--background-dark);
+            stroke: var(--primary-color);
+            stroke-width: 2;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .timeline-node-group:hover .timeline-node-circle {
+            transform: scale(1.5);
+        }
+
+        .timeline-card-content {
+            background: var(--background-light);
+            border: 1px solid var(--primary-color);
+            border-radius: 0.75rem;
+            padding: 1rem;
+            box-shadow: 0 0 20px var(--glow-color);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+            visibility: hidden;
+            z-index: 20;
+        }
+
+        .timeline-node-group:hover .timeline-card-content {
+            opacity: 1;
+            transform: translateY(0);
+            visibility: visible;
+        }
+
+        @keyframes pulse-glow {
+            0% {
+                filter: drop-shadow(0 0 2px var(--primary-color));
+            }
+            50% {
+                filter: drop-shadow(0 0 8px var(--secondary-color));
+            }
+            100% {
+                filter: drop-shadow(0 0 2px var(--primary-color));
+            }
+        }
     </style>
 </head>
 <body>
@@ -140,67 +203,72 @@
             <p class="text-purple-200/80 max-w-3xl mx-auto mb-16">
                 The core user experience is a structured, 60-session journey designed to create a comprehensive digital twin. This protocol is a holistic, two-part system: a 120-hour therapeutic progression inside the Aura Geode, which runs in parallel with a 60-day, fully integrated lifestyle reset outside the Geode. Together, they create a complete biological and digital transformation.
             </p>
-            <div class="relative w-full max-w-5xl mx-auto">
-                <!--
-                    NOTE: Timeline Interactivity (Animations & Pop-ups)
-                    The following timeline is interactive. The line draws itself and the nodes fade in
-                    as the user scrolls. This is handled by the JavaScript IntersectionObserver at the
-                    bottom of this file, which adds the '.is-visible' class. The hover pop-ups are
-                    handled by pure CSS using the ':hover' pseudo-class on '.timeline-node-container'.
-                -->
-                <!-- Timeline SVG -->
-                <svg width="100%" height="20" class="absolute top-1/2 -translate-y-1/2 -z-10">
-                    <path d="M 0 10 H 10000" stroke="url(#line-gradient)" stroke-width="2" class="timeline-path"/>
+            <div class="relative w-full max-w-5xl mx-auto" id="new-timeline-container">
+                <!-- New Interactive Timeline -->
+                <svg width="100%" height="150" class="overflow-visible">
                     <defs>
-                        <linearGradient id="line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <linearGradient id="timeline-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
                             <stop offset="0%" stop-color="var(--primary-color)" />
                             <stop offset="100%" stop-color="var(--secondary-color)" />
                         </linearGradient>
+                        <pattern id="timeline-segments" x="0" y="0" width="1.666666%" height="100%">
+                            <line x1="0" y1="0" x2="0" y2="10" stroke="rgba(147, 51, 234, 0.15)" stroke-width="1"></line>
+                        </pattern>
                     </defs>
+
+                    <!-- Faint 60 segments (background) -->
+                    <rect x="0" y="70" width="100%" height="10" fill="url(#timeline-segments)"></rect>
+
+                    <!-- Main animating line -->
+                    <path d="M 0 75 L 100% 75" stroke="url(#timeline-gradient)" stroke-width="3" fill="none" class="new-timeline-path"></path>
+
+                    <!-- Milestone Nodes and Hover Cards -->
+                    <g class="new-timeline-nodes">
+                        <!-- Node 1 -->
+                        <g class="timeline-node-group" style="transform: translateX(1.666666%);">
+                            <circle cx="0" cy="75" r="8" class="timeline-node-circle"></circle>
+                            <foreignObject x="-125" y="-85" width="250" height="140">
+                                <div class="timeline-card-content">
+                                    <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 1: Discovery & Resilience Mapping</h4>
+                                    <p class="text-sm text-purple-200/80">The journey begins. Sessions 1-20 use short, sequenced 'micro-exposures' to a wide range of modalities (light, sound, atmospheres) to map your unique physiological dose-response, akin to an allergy test for wellness stimuli.</p>
+                                </div>
+                            </foreignObject>
+                        </g>
+
+                        <!-- Node 2 -->
+                        <g class="timeline-node-group" style="transform: translateX(35%);">
+                             <circle cx="0" cy="75" r="8" class="timeline-node-circle"></circle>
+                             <foreignObject x="-125" y="-85" width="250" height="140">
+                                <div class="timeline-card-content">
+                                    <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 2: AI-Driven Chrono-Therapeutic Design</h4>
+                                    <p class="text-sm text-purple-200/80">The AI Core acts as a composer, designing complete, synergistic 2-hour therapeutic 'symphonies' to achieve specific outcomes (e.g., Deep Relaxation) based on the data from Phase 1.</p>
+                                </div>
+                            </foreignObject>
+                        </g>
+
+                        <!-- Node 3 -->
+                        <g class="timeline-node-group" style="transform: translateX(68.333333%);">
+                             <circle cx="0" cy="75" r="8" class="timeline-node-circle"></circle>
+                             <foreignObject x="-125" y="-85" width="250" height="140">
+                                <div class="timeline-card-content">
+                                    <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 3: Validation & Mind-Over-Matter Quantification</h4>
+                                    <p class="text-sm text-purple-200/80">The AI refines your optimal 'Prime Protocol' and runs placebo-controlled versions to rigorously quantify your individual placebo response, or 'Mind-Over-Matter' coefficient.</p>
+                                </div>
+                            </foreignObject>
+                        </g>
+
+                        <!-- Node 4 -->
+                        <g class="timeline-node-group" style="transform: translateX(100%);">
+                             <circle cx="0" cy="75" r="8" class="timeline-node-circle"></circle>
+                            <foreignObject x="-250" y="-85" width="250" height="140">
+                                <div class="timeline-card-content">
+                                    <h4 class="font-bold text-lg text-purple-300 mb-2">Genesis Complete</h4>
+                                    <p class="text-sm text-purple-200/80">Upon completion, your foundational Digital Twin is born and socialized. The system generates your final 'Biological Passport' and 'Placebo Coefficient' metrics for your records.</p>
+                                </div>
+                            </foreignObject>
+                        </g>
+                    </g>
                 </svg>
-                <!-- Nodes -->
-                <div class="flex justify-between items-center">
-                    <!-- Milestone Node 1: Session 1 (Initiation) -->
-                    <div class="timeline-node-container relative">
-                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                            <span class="font-bold text-xs" title="Session 1">S1</span>
-                        </div>
-                        <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 1: Discovery & Resilience Mapping</h4>
-                            <p class="text-sm text-purple-200/80">The journey begins. Sessions 1-20 use short, sequenced 'micro-exposures' to a wide range of modalities (light, sound, atmospheres) to map your unique physiological dose-response, akin to an allergy test for wellness stimuli.</p>
-                        </div>
-                    </div>
-                    <!-- Milestone Node 2: Session 21 -->
-                    <div class="timeline-node-container relative">
-                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                            <span class="font-bold text-xs" title="Session 21">S21</span>
-                        </div>
-                        <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 2: AI-Driven Chrono-Therapeutic Design</h4>
-                            <p class="text-sm text-purple-200/80">The AI Core acts as a composer, designing complete, synergistic 2-hour therapeutic 'symphonies' to achieve specific outcomes (e.g., Deep Relaxation) based on the data from Phase 1.</p>
-                        </div>
-                    </div>
-                    <!-- Milestone Node 3: Session 41 -->
-                    <div class="timeline-node-container relative">
-                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                            <span class="font-bold text-xs" title="Session 41">S41</span>
-                        </div>
-                        <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Phase 3: Validation & Mind-Over-Matter Quantification</h4>
-                            <p class="text-sm text-purple-200/80">The AI refines your optimal 'Prime Protocol' and runs placebo-controlled versions to rigorously quantify your individual placebo response, or 'Mind-Over-Matter' coefficient.</p>
-                        </div>
-                    </div>
-                    <!-- Milestone Node 4: Session 60 (Completion) -->
-                    <div class="timeline-node-container relative">
-                        <div class="timeline-node w-10 h-10 rounded-full bg-purple-500 border-2 border-purple-300 flex items-center justify-center cursor-pointer" style="box-shadow: 0 0 15px var(--glow-color);">
-                            <i class="fas fa-check text-white" title="Session 60"></i>
-                        </div>
-                        <div class="timeline-node-content text-left">
-                            <h4 class="font-bold text-lg text-purple-300 mb-2">Genesis Complete</h4>
-                            <p class="text-sm text-purple-200/80">Upon completion, your foundational Digital Twin is born and socialized, and the system generates your final 'Biological Passport' and 'Placebo Coefficient' metrics.</p>
-                        </div>
-                    </div>
-                </div>
             </div>
 
             <!-- Gateway Cards -->
@@ -297,28 +365,28 @@
                 fadeInObserver.observe(section);
             });
 
-            // 2. Specific observer for the timeline animation
-            // This script handles the drawing of the timeline path and the sequential appearance of the nodes
-            // as the user scrolls the '#genesis-protocol' section into view. It works by adding the
-            // '.is-visible' class, which triggers the animations defined in the <style> tag in the <head>.
+            // 2. Specific observer for the new interactive timeline animation
             const timelineSection = document.querySelector('#genesis-protocol');
             if (timelineSection) {
                 const timelineObserver = new IntersectionObserver((entries) => {
                     if (entries[0].isIntersecting) {
-                        const timelinePath = timelineSection.querySelector('.timeline-path');
-                        const timelineNodes = timelineSection.querySelectorAll('.timeline-node');
+                        const timelinePath = timelineSection.querySelector('.new-timeline-path');
+                        const timelineNodes = timelineSection.querySelectorAll('.timeline-node-group');
+                        const animationDuration = 3000; // Corresponds to the 3s transition in CSS
 
                         // Animate the SVG path drawing
                         if (timelinePath) {
                             timelinePath.classList.add('is-visible');
                         }
 
-                        // Animate the nodes appearing in sequence
+                        // Animate the nodes appearing in sequence as the line passes them
                         if (timelineNodes.length > 0) {
+                            const nodePositions = [1/60, 21/60, 41/60, 60/60];
                             timelineNodes.forEach((node, index) => {
+                                const delay = animationDuration * nodePositions[index];
                                 setTimeout(() => {
                                     node.classList.add('is-visible');
-                                }, 800 + (index * 400)); // Stagger the node animations
+                                }, delay);
                             });
                         }
 
@@ -326,7 +394,7 @@
                         timelineObserver.unobserve(timelineSection);
                     }
                 }, {
-                    threshold: 0.4 // Trigger when 40% of the timeline is visible
+                    threshold: 0.6 // Trigger when 60% of the element is visible for a better effect
                 });
 
                 timelineObserver.observe(timelineSection);

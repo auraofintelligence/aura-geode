@@ -1,42 +1,197 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>60-Day Lifestyle Reset</title>
+    <title>The 60-Day Protocol: Define Your Engagement Level</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: #0d0c22;
             color: #e0e0e0;
+            overflow-x: hidden;
+        }
+        .card {
+            background: rgba(23, 22, 48, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(138, 43, 226, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(138, 43, 226, 0.8);
+            box-shadow: 0 0 25px rgba(138, 43, 226, 0.5), 0 0 10px rgba(255, 255, 255, 0.1) inset;
+        }
+        .glow-text {
+            text-shadow: 0 0 8px rgba(192, 132, 252, 0.8);
+        }
+        .scroll-hidden {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .scroll-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .tier-card.selected {
+            border-color: #ec4899;
+            box-shadow: 0 0 35px #ec4899, 0 0 15px rgba(255, 255, 255, 0.2) inset;
+            transform: translateY(-5px) scale(1.02);
+        }
+        .carousel {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
         }
-        .container {
-            text-align: center;
+        .carousel::-webkit-scrollbar {
+            display: none; /* Safari and Chrome */
         }
-        h1 {
-            font-size: 3rem;
-            color: #9333ea;
+        .carousel-item {
+            flex: 0 0 90%;
+            scroll-snap-align: center;
+            margin-right: 1.5rem;
         }
-        p {
-            font-size: 1.2rem;
-            color: #a7a7d2;
+        @media (min-width: 768px) {
+            .carousel-item {
+                flex: 0 0 45%;
+            }
         }
-        a {
-            color: #ec4899;
-            text-decoration: none;
+        @media (min-width: 1024px) {
+            .carousel-item {
+                flex: 0 0 30%;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>60-Day Lifestyle Reset</h1>
-        <p>Content for this page is coming soon.</p>
-        <p><a href="aura-geode-hbot.html">Go Back</a></p>
-    </div>
+    <div class="absolute top-0 left-0 w-full h-full bg-grid-purple-500/[0.05] -z-10"></div>
+    <div class="absolute top-0 left-0 w-full h-96 bg-gradient-to-b from-purple-900/50 to-transparent -z-10"></div>
+
+    <main class="container mx-auto px-4 py-16 md:py-24">
+        <section id="hero" class="text-center min-h-[80vh] flex flex-col justify-center items-center scroll-hidden">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 mb-4">The 60-Day Protocol</h1>
+            <h2 class="text-3xl md:text-5xl font-bold text-purple-300/90 mb-6 glow-text">Define Your Engagement Level</h2>
+            <p class="text-lg md:text-xl text-purple-200/80 max-w-4xl mb-10">The 60-Day Lifestyle Protocol runs in parallel with your 120-hour in-capsule therapy. Before you begin, you must determine the intensity of your engagement. Your choices will define the structure of your protocol, the data your Aura collects, and the ultimate scope of your personal transformation. This really is a Choose Your Own Adventure!</p>
+            <div class="flex flex-col md:flex-row gap-4">
+                <a href="#tiers" data-tier="tier-1" class="tier-button group relative inline-block px-8 py-4 font-semibold text-lg text-white bg-purple-600/50 rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">
+                    Maintain Current Lifestyle
+                </a>
+                <a href="#tiers" data-tier="tier-2" class="tier-button group relative inline-block px-8 py-4 font-semibold text-lg text-white bg-purple-600/50 rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">
+                    Adopt Integrated Wellness Protocols
+                </a>
+                <a href="#tiers" data-tier="tier-3" class="tier-button group relative inline-block px-8 py-4 font-semibold text-lg text-white bg-purple-600/50 rounded-lg border border-purple-500 hover:bg-purple-600 transition-all duration-300">
+                    Engage in a Full-Life Transition
+                </a>
+            </div>
+        </section>
+
+        <section id="tiers" class="my-24 scroll-hidden">
+            <h2 class="text-4xl font-bold text-center mb-12 glow-text text-purple-300">Protocol Tiers</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div id="tier-1" class="tier-card card p-6 rounded-2xl h-full flex flex-col">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-3">Tier 1 - The Foundational Reset</h3>
+                    <p class="text-lg font-semibold text-purple-200/90 mb-4">Maintain Current Lifestyle</p>
+                    <p class="text-purple-200/80">This tier is designed for individuals who need to maintain their existing work and life commitments. The protocol focuses strictly on integrating the 2-hour daily in-capsule session. Your Aura of Intelligence will be built primarily from this biometric data, providing a powerful but contained health reset without requiring significant changes to your diet or daily schedule.</p>
+                </div>
+                <div id="tier-2" class="tier-card card p-6 rounded-2xl h-full flex flex-col" style="transition-delay: 100ms;">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-3">Tier 2 - The Integrated Reset</h3>
+                    <p class="text-lg font-semibold text-purple-200/90 mb-4">Adopt Integrated Wellness Protocols</p>
+                    <p class="text-purple-200/80">This tier is for those ready to make significant, targeted lifestyle changes. In addition to the in-capsule sessions, your protocol will include personalized diet plans, exercise regimens, and specific mindfulness practices. Your Aura will actively guide you in forming new habits, creating a holistic synergy between your therapy and your daily life for a deeper transformation.</p>
+                </div>
+                <div id="tier-3" class="tier-card card p-6 rounded-2xl h-full flex flex-col" style="transition-delay: 200ms;">
+                    <h3 class="text-2xl font-bold text-pink-400 mb-3">Tier 3 - The Transformational Reset</h3>
+                    <p class="text-lg font-semibold text-purple-200/90 mb-4">Engage in a Full-Life Transition</p>
+                    <p class="text-purple-200/80">This tier is a deep-dive into 'Sudden Life Gaming'—a comprehensive re-evaluation and redesign of your life. It's for those seeking a fundamental shift. Your protocol will go beyond diet and exercise to include advanced modules in personal philosophy, skill acquisition, and even your role in broader civilization-scale challenges. This is a complete personal and cognitive overhaul.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="advanced-modules" class="my-24 scroll-hidden">
+            <h2 class="text-4xl font-bold text-center mb-4 glow-text text-purple-300">Advanced Modules: Choose Your Path</h2>
+            <p class="text-center text-purple-200/80 max-w-3xl mx-auto mb-12">For participants in the Transformational tier, the 60-Day Reset serves as an onboarding ramp into a series of advanced protocols. You can choose to engage with systems that scale from your personal environment to the planetary level.</p>
+            <div class="carousel pb-8">
+                <div class="carousel-item card p-6 rounded-2xl">
+                    <img src="https://placehold.co/600x400/0d0c22/ec4899?text=Sovereign+Space" alt="Sovereign Space Builder" class="rounded-lg mb-4">
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">Build Your Sovereign Space</h3>
+                    <p class="text-purple-200/80">Activate a protocol to create a digital twin of your home. Design and manage AI-Integrated Food Systems, from automated hydroponics to smart pantries, creating a closed-loop, regenerative ecosystem.</p>
+                </div>
+                <div class="carousel-item card p-6 rounded-2xl">
+                    <img src="https://placehold.co/600x400/0d0c22/ec4899?text=Innovation+Engine" alt="The Innovation Engine" class="rounded-lg mb-4">
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">Engage the Innovation Engine</h3>
+                    <p class="text-purple-200/80">Participate in a new model of venture creation. Join the '500 Queens' initiative, a global swarm of women-led, value-aligned enterprises built on open-source knowledge and circular economics. Otherwise join GAJRA Earth to be in Global Association for Joyful Responsible Abundance on Earth.</p>
+                </div>
+                <div class="carousel-item card p-6 rounded-2xl">
+                    <img src="https://placehold.co/600x400/0d0c22/ec4899?text=Planetary+Game" alt="The Planetary Game" class="rounded-lg mb-4">
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">Join the Planetary Game</h3>
+                    <p class="text-purple-200/80">Engage in a gamified mission to address humanity's greatest challenges. Analyze real-time data from the Space Weather Hub to help prepare for civilization-scale events like the Solar Micro Nova, contributing to a protopian future.</p>
+                </div>
+                <div class="carousel-item card p-6 rounded-2xl">
+                    <img src="https://placehold.co/600x400/0d0c22/ec4899?text=Civilization+Design" alt="Civilization Design" class="rounded-lg mb-4">
+                    <h3 class="text-xl font-bold text-pink-400 mb-2">Evolve Civilization</h3>
+                    <p class="text-purple-200/80">Explore the 'Big Picture.' Engage with complex scenarios and thought experiments about humanity's long-term future, from addressing existential threats to the ethics of becoming a Kardashev Type 1 Civilization.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="final-choice" class="my-24 text-center scroll-hidden">
+            <h2 class="text-4xl font-bold text-center mb-4 glow-text text-purple-300">Define Your Protocol</h2>
+            <p class="text-center text-purple-200/80 max-w-3xl mx-auto mb-12">Your journey is defined by your choices. The 60-day protocol is a tool, and its power is proportional to your intent. Select your tier, choose your modules, and begin the process of building your new reality.</p>
+            <a href="#" class="group relative inline-block px-10 py-5 font-bold text-xl text-white bg-pink-600/80 rounded-lg border border-pink-500 hover:bg-pink-600 transition-all duration-300 shadow-[0_0_25px_rgba(236,72,153,0.5)]">
+                Begin Onboarding Assessment
+            </a>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('scroll-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.scroll-hidden').forEach(el => {
+                observer.observe(el);
+            });
+
+            const tierButtons = document.querySelectorAll('.tier-button');
+            const tierCards = document.querySelectorAll('.tier-card');
+
+            tierButtons.forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    const targetTier = button.dataset.tier;
+                    const targetCard = document.getElementById(targetTier);
+
+                    // Remove 'selected' class from all cards
+                    tierCards.forEach(card => card.classList.remove('selected'));
+
+                    // Add 'selected' class to the target card
+                    if (targetCard) {
+                        targetCard.classList.add('selected');
+
+                        // Scroll to the tiers section
+                        const tiersSection = document.getElementById('tiers');
+                        tiersSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                        // Optional: remove selection after a delay
+                        setTimeout(() => {
+                            targetCard.classList.remove('selected');
+                        }, 2500); // Glows for 2.5 seconds
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
